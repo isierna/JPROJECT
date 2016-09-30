@@ -67,7 +67,7 @@ public class MyFirstTest {
 
         WebElement password = waitUntil(presenceOfElementLocated(By.id("usernamereg-password")));
 
-
+        WebElement phone_number = waitUntil(presenceOfElementLocated(By.id("usernamereg-phone")));
 
         String randomString;
         randomString = RandomStringUtils.randomAlphabetic(8); //generating a random string
@@ -78,18 +78,8 @@ public class MyFirstTest {
 
         String password1 = RandomStringUtils.randomAlphanumeric(10);
 
-
-        password.clear();
-        password.sendKeys(password1);
-
         Select country = new Select(waitUntil(presenceOfElementLocated(By.name("shortCountryCode"))));
         country.selectByValue("MC");
-
-        WebElement phone_number = waitUntil(presenceOfElementLocated(By.id("usernamereg-phone")));
-        Actions action = new Actions(driver);
-        action.moveToElement(email).click();
-        phone_number.clear();
-        phone_number.sendKeys("0961454392");
 
         Select month = new Select(waitUntil(presenceOfElementLocated(By.id("usernamereg-month"))));
         month.selectByValue("1");
@@ -100,7 +90,17 @@ public class MyFirstTest {
         Select year = new Select(waitUntil(presenceOfElementLocated(By.id("usernamereg-year"))));
         year.selectByValue("1990");
 
+        Actions action = new Actions(driver);
+        action.moveToElement(phone_number).click(phone_number);
+        action.perform();
+
         WebElement submit_button = waitUntil(presenceOfElementLocated(By.id("reg-submit-button")));
+
+        password.sendKeys(password1);
+
+        phone_number.clear();
+        phone_number.sendKeys("92057473");
+
         submit_button.click();
 
     }
