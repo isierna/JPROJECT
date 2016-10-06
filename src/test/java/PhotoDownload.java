@@ -1,19 +1,16 @@
-import org.apache.commons.io.FileUtils;
-import org.openqa.selenium.By;
-import org.openqa.selenium.NoSuchElementException;
-import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.WebElement;
+import org.openqa.selenium.*;
 import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.firefox.FirefoxProfile;
+import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.ui.ExpectedCondition;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 
-import java.io.File;
+import java.awt.*;
+import java.awt.event.KeyEvent;
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.List;
 
 import static org.openqa.selenium.support.ui.ExpectedConditions.presenceOfElementLocated;
@@ -52,7 +49,7 @@ public class PhotoDownload {
 
 
     @Test
-    public static void photoGet() throws IOException {
+    public static void photoGet() throws IOException, AWTException {
         driver.get("http://www.imaging-resource.com/cameras/reviews/"); //open driver and main URL to work with
         driver.manage().window().maximize(); //maximize browser's window
 
@@ -66,30 +63,32 @@ public class PhotoDownload {
         gallery.click();
 
         checkForAd();
-        ArrayList <WebElement> photo_list = new ArrayList<WebElement>();
-        WebElement photo = waitUntil(presenceOfElementLocated(By.xpath("//*[@id=\"thumbs-table\"]/tbody/tr[1]/td[1]")));
-        List<WebElement> elements = photo.findElements(By.xpath(".//*[@href]")); // dot in front of // ensures that the search will be made inside the particular web-element, not the entire page
 
-        for(int i = 0; i < elements.size(); i++) {
-            System.out.println("wwww " + elements.get(i).getAttribute("href"));
-        }
+        List<WebElement> photo_links = driver.findElements(By.xpath("//table[@id=\"thumbs-table\"]/tbody/tr/td/a[not(contains(@href,'EXIF'))][not(./img)]"));
+        System.out.println("zzzz" + photo_links.size());
 
-        System.out.println("123 " + photo.getAttribute("href"));
+        for (int i = 0; i < photo_links.size(); i++) {
+            System.out.println("wwww " + photo_links.get(i).getAttribute("href"));
+            WebElement link = photo_links.get(i);
+            link.click();
 
-        photo_list.add(photo);
-        System.out.println(photo.getAttribute("href"));
-        photo_list.get(0).click();
+            try {
+                driver.findElement(By.linkText("Full Size Image")).click();
+                WebElement a = driver.findElement(By.xpath("//img[contains(@src,'FULLRES')]"));
+                Actions action = new Actions(driver);
+                action.moveToElement(a).perform();
+                action.contextClick(a).perform();
+                action.sendKeys("v").perform();
 
-        WebElement actual_link = waitUntil(presenceOfElementLocated(By.xpath("/html/body/table/tbody/tr/td[2]/p[1]/b/a")));
-        actual_link.click();
+                Robot robot = new Robot();
 
-        File photo_folder = new File("/Users/Ira/Pictures/1");
-        File[] flist = photo_folder.listFiles();
-        System.out.println("List of downloaded files \n");
+                    robot.keyPress(KeyEvent.VK_ENTER);
+                    robot.keyRelease(KeyEvent.VK_ENTER);
+                    robot.delay(2000);
 
-
-        for (File file : flist) {
-            System.out.println(file.getName());
+            } catch (NoSuchElementException e) {
+                System.out.println(e);
+            }
         }
 
         //FileUtils.cleanDirectory(photo_folder);
