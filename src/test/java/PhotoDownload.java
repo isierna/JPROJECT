@@ -74,8 +74,8 @@ public class PhotoDownload {
 
         ArrayList<String> phtot_links_urls = new ArrayList<String>();
 
-        for (int y=0; y<photo_links.size(); y++) {
-            String a = photo_links.get(y).getAttribute("href");
+        for (WebElement y : photo_links) {
+            String a = y.getAttribute("href");
             phtot_links_urls.add(a);
         }
 
@@ -113,9 +113,9 @@ public class PhotoDownload {
             }
 
             try {
-                WebElement b = driver.findElement(By.xpath("//a[@class='caption']"));
-                String c = b.getAttribute("href");
-                URL url = new URL(c);
+                WebElement raw_element = driver.findElement(By.xpath("//a[@class='caption']"));
+                String raw_url = raw_element.getAttribute("href");
+                URL url = new URL(raw_url);
                 String file_name = url.getFile();
                 String destination = raw_directory + file_name.substring(file_name.lastIndexOf("/"));
 
