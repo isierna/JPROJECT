@@ -21,7 +21,7 @@ import static org.openqa.selenium.support.ui.ExpectedConditions.presenceOfElemen
 public class PhotoDownload {
     static WebDriver driver;
     static String maker = "Canon";
-    static String model = "Canon 5DS";
+    static String model = "Canon 5D Mark IV";
 
 
     @BeforeMethod
@@ -66,7 +66,7 @@ public class PhotoDownload {
         WebElement camera = waitUntil(presenceOfElementLocated(By.linkText(model)));
         camera.click();
         checkForAd();
-        WebElement gallery = waitUntil(presenceOfElementLocated(By.linkText("Gallery")));
+        WebElement gallery = waitUntil(presenceOfElementLocated(By.linkText("Samples")));
         gallery.click();
         checkForAd();
 
