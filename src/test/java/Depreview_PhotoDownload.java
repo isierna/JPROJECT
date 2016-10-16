@@ -51,6 +51,7 @@ public class Depreview_PhotoDownload {
         new File(jpg_directory).mkdir();
         new File(raw_directory).mkdir();
 
+
         driver.get("https://www.dpreview.com/");
         driver.manage().window().maximize();
 
@@ -72,8 +73,9 @@ public class Depreview_PhotoDownload {
         ArrayList<String> photo_links_urls = new ArrayList<String>();
 
 
-        for (int t=0; t<strip_items.size(); t++) {
-            strip_items.get(t).click();
+        for (int t=100; t<=strip_items.size(); t++) {
+            WebElement u = driver.findElement(By.xpath("//div[@class='filmstripImage']" + "[" + t +"]"));
+            u.click();
             WebElement first_link_element = waitUntil(presenceOfElementLocated(By.xpath("//tr[./td[text()=\"Download:\"]]/td[@class=\"content\"]/a[1]")));
             String first_link = first_link_element.getAttribute("href");
             photo_links_urls.add(first_link);
@@ -104,7 +106,9 @@ public class Depreview_PhotoDownload {
 
                 URL url2 = new URL(second_link);
                 String file2 = url2.getFile();
-                String destination2 = raw_directory + file2.substring(file2.lastIndexOf("/"));
+
+                String destination2 = raw_directory + file2.substring(file2.lastIndexOf("/"), file2.indexOf("?"));
+                System.out.println("file name" + destination2);
 
                 InputStream inputStream2 = url2.openStream();
                 OutputStream outputStream2 = new FileOutputStream(destination2);
@@ -126,19 +130,7 @@ public class Depreview_PhotoDownload {
         }
 
         System.out.println(photo_links_urls.size());
-
-
-
-        /*List<WebElement> photo_links = driver.findElements(By.xpath("//div[@class='filmstripImage']/img[@src]"));
-        ArrayList<String> photo_links_urls = new ArrayList<String>();
-
-        for (WebElement y: photo_links) {
-            String a = y.getAttribute("");
-        }*/
-
-
-        driver.findElement(By.linkText("Cameras")).click();
-        System.out.println("Success");
+     System.out.println("Success");
 
 
     }
