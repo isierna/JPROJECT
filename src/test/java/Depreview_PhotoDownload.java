@@ -26,6 +26,21 @@ public class Depreview_PhotoDownload {
     static String maker = "Nikon";
     static String model = "D5";
 
+    public static void download(URL url, String destination) throws IOException {
+        InputStream inputStream = url.openStream();
+        OutputStream outputStream = new FileOutputStream(destination);
+
+        byte[] bt = new byte[2048];
+        int length;
+
+        while ((length = inputStream.read(bt)) != -1) {
+            outputStream.write(bt,0,length);
+        }
+
+        inputStream.close();
+        outputStream.close();
+    }
+
     @BeforeMethod
     public static void openBrowser() {
         driver = new FirefoxDriver();
@@ -85,7 +100,9 @@ public class Depreview_PhotoDownload {
             String file = url.getFile();
             String destination = jpg_directory + file.substring(file.lastIndexOf("/"));
 
-            InputStream inputStream = url.openStream();
+            download(url, destination);
+
+            /*InputStream inputStream = url.openStream();
             OutputStream outputStream = new FileOutputStream(destination);
 
             byte[] bt = new byte[2048];
@@ -96,7 +113,7 @@ public class Depreview_PhotoDownload {
             }
 
             inputStream.close();
-            outputStream.close();
+            outputStream.close();*/
 
             try {
                 WebElement second_link_element = driver.findElement(By.xpath("//tr[./td[text()=\"Download:\"]]/td[@class=\"content\"]/a[2]"));
@@ -110,7 +127,9 @@ public class Depreview_PhotoDownload {
                 String destination2 = raw_directory + file2.substring(file2.lastIndexOf("/"), file2.indexOf("?"));
                 System.out.println("file name" + destination2);
 
-                InputStream inputStream2 = url2.openStream();
+                download(url2, destination2);
+
+                /*InputStream inputStream2 = url2.openStream();
                 OutputStream outputStream2 = new FileOutputStream(destination2);
 
                 byte[] bt2 = new byte[2048];
@@ -122,7 +141,7 @@ public class Depreview_PhotoDownload {
 
                 inputStream2.close();
                 outputStream2.close();
-
+*/
             }catch (NoSuchElementException e) {
 
             }
