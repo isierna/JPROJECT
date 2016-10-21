@@ -3,7 +3,6 @@ import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.firefox.FirefoxDriver;
-import org.openqa.selenium.interactions.Action;
 import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.ui.ExpectedCondition;
 import org.openqa.selenium.support.ui.WebDriverWait;
@@ -25,6 +24,10 @@ public class Depreview_PhotoDownload {
     static WebDriver driver;
     static String maker = "Nikon";
     static String model = "D5";
+    static String file_name;
+    static WebElement link_element;
+    static String link;
+    static URL url;
 
     public static void download(URL url, String destination) throws IOException {
         InputStream inputStream = url.openStream();
@@ -39,6 +42,23 @@ public class Depreview_PhotoDownload {
 
         inputStream.close();
         outputStream.close();
+    }
+
+    public static boolean checkIfFileExists(String file_name, String directory) throws IOException {
+        Boolean a = true;
+        File file1 = new File(directory);
+        String[] all_files = file1.list();
+
+        for (String file2:all_files) {
+            file2 = "/" + file2;
+
+            if(file_name.equals(file2)) {
+                System.out.println("File names equals");
+                a = false;
+            }
+        }
+        System.out.println(a);
+        return a;
     }
 
     @BeforeMethod
@@ -79,7 +99,7 @@ public class Depreview_PhotoDownload {
         Thread.sleep(200);
         action.click(element1).perform();
 
-        WebElement link_to_camera = driver.findElement(By.partialLinkText("Nikon D5 "));
+        WebElement link_to_camera = driver.findElement(By.partialLinkText("Nikon D5 real world low light samples"));
         link_to_camera.click();
 
         waitUntil(presenceOfElementLocated(By.xpath("//div[@class=\"filmstrip\"]")));
@@ -88,69 +108,44 @@ public class Depreview_PhotoDownload {
         ArrayList<String> photo_links_urls = new ArrayList<String>();
 
 
-        for (int t=100; t<=strip_items.size(); t++) {
+        for (int t=1; t<=strip_items.size(); t++) {
             WebElement u = driver.findElement(By.xpath("//div[@class='filmstripImage']" + "[" + t +"]"));
             u.click();
-            WebElement first_link_element = waitUntil(presenceOfElementLocated(By.xpath("//tr[./td[text()=\"Download:\"]]/td[@class=\"content\"]/a[1]")));
-            String first_link = first_link_element.getAttribute("href");
-            photo_links_urls.add(first_link);
-            System.out.println("link 1" + first_link);
+            link_element = waitUntil(presenceOfElementLocated(By.xpath("//tr[./td[text()=\"Download:\"]]/td[@class=\"content\"]/a[1]")));
+            link = link_element.getAttribute("href");
+            photo_links_urls.add(link);
+            System.out.println("link 1" + link);
 
-            URL url = new URL(first_link);
+            url = new URL(link);
             String file = url.getFile();
-            String destination = jpg_directory + file.substring(file.lastIndexOf("/"));
+            file_name = file.substring(file.lastIndexOf("/"));
 
-            download(url, destination);
-
-            /*InputStream inputStream = url.openStream();
-            OutputStream outputStream = new FileOutputStream(destination);
-
-            byte[] bt = new byte[2048];
-            int length;
-
-            while ((length = inputStream.read(bt)) != -1) {
-                outputStream.write(bt,0,length);
-            }
-
-            inputStream.close();
-            outputStream.close();*/
+            if (checkIfFileExists(file_name,jpg_directory)){
+                String destination = jpg_directory + file_name;
+                download(url, destination);
+            }else {System.out.println("File already exists");}
 
             try {
-                WebElement second_link_element = driver.findElement(By.xpath("//tr[./td[text()=\"Download:\"]]/td[@class=\"content\"]/a[2]"));
-                String second_link = second_link_element.getAttribute("href");
-                photo_links_urls.add(second_link);
-                System.out.println("Link 2" + second_link);
+                link_element = driver.findElement(By.xpath("//tr[./td[text()=\"Download:\"]]/td[@class=\"content\"]/a[2]"));
+                link = link_element.getAttribute("href");
+                photo_links_urls.add(link);
+                System.out.println("Link 2" + link);
 
-                URL url2 = new URL(second_link);
-                String file2 = url2.getFile();
+                url = new URL(link);
+                String file2 = url.getFile();
+                file_name = file2.substring(file2.lastIndexOf("/"), file2.indexOf("?"));
 
-                String destination2 = raw_directory + file2.substring(file2.lastIndexOf("/"), file2.indexOf("?"));
-                System.out.println("file name" + destination2);
+                if (checkIfFileExists(file_name,raw_directory)) {
+                    String destination2 = raw_directory + file_name;
+                    download(url, destination2);
+                } else {System.out.println("RAW file already exists");}
 
-                download(url2, destination2);
-
-                /*InputStream inputStream2 = url2.openStream();
-                OutputStream outputStream2 = new FileOutputStream(destination2);
-
-                byte[] bt2 = new byte[2048];
-                int length2;
-
-                while ((length2 = inputStream2.read(bt2)) != -1) {
-                    outputStream2.write(bt2,0,length2);
-                }
-
-                inputStream2.close();
-                outputStream2.close();
-*/
             }catch (NoSuchElementException e) {
 
             }
             System.out.println("Size is " + photo_links_urls.size());
         }
-
         System.out.println(photo_links_urls.size());
      System.out.println("Success");
-
-
     }
 }

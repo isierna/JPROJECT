@@ -41,7 +41,7 @@ public class Download {
             HttpURLConnection connection = (HttpURLConnection) url.openConnection();
             connection.setRequestMethod("HEAD");
             double file_size_online = (double) connection.getContentLengthLong();
-            System.out.println("Size in the wab " + file_size_online);
+            System.out.println("Size in the web " + file_size_online);
 
 
             File file1 = new File("/Users/Ira/Pictures/2/productpic2atommug_1024x1024.jpg");

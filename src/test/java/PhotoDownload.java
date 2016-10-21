@@ -20,8 +20,8 @@ import static org.openqa.selenium.support.ui.ExpectedConditions.presenceOfElemen
  */
 public class PhotoDownload {
     static WebDriver driver;
-    static String maker = "Canon";
-    static String model = "Canon 5D Mark IV";
+    static String maker = "Nikon";
+    static String model = "D5";
 
 
     @BeforeMethod
@@ -63,10 +63,10 @@ public class PhotoDownload {
 
         driver.findElement(By.linkText( maker +" Reviews")).click();
         checkForAd();
-        WebElement camera = waitUntil(presenceOfElementLocated(By.linkText(model)));
+        WebElement camera = waitUntil(presenceOfElementLocated(By.partialLinkText(model)));
         camera.click();
         checkForAd();
-        WebElement gallery = waitUntil(presenceOfElementLocated(By.linkText("Samples")));
+        WebElement gallery = waitUntil(presenceOfElementLocated(By.linkText("Gallery")));
         gallery.click();
         checkForAd();
 
@@ -80,7 +80,7 @@ public class PhotoDownload {
         }
 
 
-        for (int i = 0; i < photo_links.size(); i++) {
+        for (int i = 75; i < photo_links.size(); i++) {
             driver.get(phtot_links_urls.get(i));
             try {
                 driver.findElement(By.linkText("Full Size Image")).click();

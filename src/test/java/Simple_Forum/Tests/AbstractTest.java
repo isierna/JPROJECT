@@ -7,5 +7,6 @@ import org.openqa.selenium.WebDriver;
  * Created by Ira on 10/10/16.
  */
 public class AbstractTest extends AbstractPage{
+    public String random = generateRandomString();
 
 }

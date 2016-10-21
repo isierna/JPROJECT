@@ -35,10 +35,15 @@ public class ForumRegistrationPage extends AbstractPage {
     public WebElement addUserButton;
 
     @Override
+    public void goTo(WebElement element) {
+        element.click();
+        at();
+    }
+
+    @Override
     public void at() {
         waitUntil(presenceOfElementLocated(By.xpath("//input[@value=\"Add user\"]")));
     }
-
 
     public void assertConfirmationPresent() {
         waitUntil(textToBePresentInElementLocated(By.xpath("//div[@id=\"content\"]"),"Successfully registered. You can now "));

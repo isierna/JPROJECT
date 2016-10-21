@@ -21,6 +21,9 @@ public class ForumHomePage extends AbstractPage {
     @FindBy(xpath = "//a[@id=\"sign_up\"]")
     public WebElement linkToRegistrtationPage;
 
+    @FindBy(xpath = "//a[@id=\"sign_in\"]")
+    public WebElement linkToSignInPage;
+
     @Override
     public void go() {
         driver.get("http://koncikowski.pl/forum/index.php");
