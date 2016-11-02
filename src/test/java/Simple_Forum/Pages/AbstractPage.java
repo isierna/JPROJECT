@@ -1,6 +1,7 @@
 package Simple_Forum.Pages;
 
 import org.apache.commons.lang3.RandomStringUtils;
+import org.openqa.selenium.Cookie;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.ExpectedCondition;
@@ -14,6 +15,13 @@ public class AbstractPage {
 
     public void go() {}
     public void at() {}
+
+    public void userSignedIn(WebDriver driver) {
+        Cookie cookie = new Cookie("PHPSESSID", "2b93c203d0c54608017c7a3a4454c096");
+        driver.manage().addCookie(cookie);
+        driver.navigate().refresh();
+
+    }
 
     public void goTo(WebElement element) {
 

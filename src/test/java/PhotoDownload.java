@@ -20,8 +20,8 @@ import static org.openqa.selenium.support.ui.ExpectedConditions.presenceOfElemen
  */
 public class PhotoDownload {
     static WebDriver driver;
-    static String maker = "Nikon";
-    static String model = "D5";
+    static String maker = "Pentax";
+    static String model = "K-S2";
 
 
     @BeforeMethod
@@ -49,7 +49,7 @@ public class PhotoDownload {
 
     @Test
     public static void photoGet() throws IOException, AWTException {
-        String main_directory = "/Users/Ira/Pictures/1/" + maker + "_" + model;
+        String main_directory = "/Users/Ira/Pictures/1/" + maker + "_" + model + "new";
         String jpg_directory = main_directory + "/JPG";
         String raw_directory = main_directory + "/RAW";
 
@@ -72,16 +72,30 @@ public class PhotoDownload {
 
         List<WebElement> photo_links = driver.findElements(By.xpath("//table[@id=\"thumbs-table\"]/tbody/tr/td/a[not(contains(@href,'EXIF'))][not(./img)]"));
 
-        ArrayList<String> phtot_links_urls = new ArrayList<String>();
+        ArrayList<String> photo_links_urls = new ArrayList<String>();
 
         for (WebElement y : photo_links) {
             String a = y.getAttribute("href");
-            phtot_links_urls.add(a);
+            photo_links_urls.add(a);
         }
+        System.out.println("LLL" + photo_links_urls.size());
+
+        System.out.println(photo_links_urls);
+
+        int length0 = new File(jpg_directory).listFiles().length;
+        int length1 = new File(raw_directory).listFiles().length;
+
+        int length3 = photo_links_urls.size();
+        System.out.println(length0 + length1);
+        int n = length3 - (length0+length1);
+        int a = length3 -n;
+
+        System.out.println(a);
 
 
-        for (int i = 75; i < photo_links.size(); i++) {
-            driver.get(phtot_links_urls.get(i));
+
+        for (int i = 425; i < photo_links.size(); i++) {
+            driver.get(photo_links_urls.get(i));
             try {
                 driver.findElement(By.linkText("Full Size Image")).click();
                 WebElement link_element = driver.findElement(By.xpath("//img[contains(@src,'FULLRES')]"));
