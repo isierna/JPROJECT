@@ -7,6 +7,10 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.ExpectedCondition;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
 /**
  * Created by Ira on 10/10/16.
  */
@@ -20,6 +24,14 @@ public class AbstractPage {
         Cookie cookie = new Cookie("PHPSESSID", "2b93c203d0c54608017c7a3a4454c096");
         driver.manage().addCookie(cookie);
         driver.navigate().refresh();
+
+    }
+
+    public String currentDateAndTime() {
+        DateFormat dateformat = new SimpleDateFormat("MM/dd/yyyy HH:mm:ss");
+        Date date = new Date();
+        String date1 = dateformat.format(date);
+        return date1;
 
     }
 
