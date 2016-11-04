@@ -17,6 +17,9 @@ public class ForumCreateTopicPage extends AbstractPage{
         PageFactory.initElements(driver, this);
     }
 
+    @FindBy(xpath = "//div[@id=\"content\"]")
+    public WebElement confirmationMessage;
+
     @FindBy(xpath = "//input[@name=\"topic_subject\"]")
     public WebElement subject;
 
@@ -24,7 +27,7 @@ public class ForumCreateTopicPage extends AbstractPage{
     public WebElement category;
 
     @FindBy(xpath = "//textarea[@name=\"post_content\"]")
-    public WebElement message;
+    public WebElement messageInput;
 
     @FindBy(xpath = "//input[@value=\"Create topic\"]")
     public WebElement createTopicButton;

@@ -27,6 +27,9 @@ public class ForumHomePage extends AbstractPage {
     @FindBy(xpath = "//a[@id=\"create_topic\"]")
     public WebElement linkToCreateTopicPage;
 
+    @FindBy(linkText = "New category")
+    public WebElement category;
+
     @Override
     public void go() {
         driver.get("http://koncikowski.pl/forum/index.php");
