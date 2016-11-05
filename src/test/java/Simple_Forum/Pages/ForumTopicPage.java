@@ -20,6 +20,9 @@ public class ForumTopicPage extends AbstractPage {
     @FindBy(xpath = "//td[@class=\"post-content\"]")
     public WebElement message;
 
+    @FindBy(xpath = "//td[@class=\"user-post\"]")
+    public WebElement user;
+
     @Override
     public void at() {
         waitUntil(presenceOfElementLocated(By.xpath("//input[@value=\"Submit reply\"]")));

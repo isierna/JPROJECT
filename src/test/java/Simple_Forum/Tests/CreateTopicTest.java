@@ -13,6 +13,7 @@ import org.testng.ITestResult;
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
+import Simple_Forum.Utils.User;
 
 
 import java.io.File;
@@ -26,6 +27,7 @@ public class CreateTopicTest extends AbstractTest {
     static ForumCreateTopicPage createTopicPage;
     static ForumTopicPage forumTopicPage;
     static ForumCategoryPage forumCategoryPage;
+    static User user;
     WebDriver driver;
 
     @BeforeMethod
@@ -43,12 +45,14 @@ public class CreateTopicTest extends AbstractTest {
             FileUtils.copyFile(scrFile, new File("/Users/Ira/Pictures/1/testScreenShot.jpg"));
             driver.quit();
         }
+        driver.quit();
     }
 
 
     @Test
     public void createTopic() {
-        userSignedIn(driver);
+        user = new User();
+        user.userSignedIn(driver);
         homePage.linkToCreateTopicPage.click();
         createTopicPage = new ForumCreateTopicPage(driver);
         createTopicPage.at();
@@ -72,8 +76,9 @@ public class CreateTopicTest extends AbstractTest {
 
         Assert.assertEquals(forumTopicPage.message.getText(), message);
 
+        String user_posted_topic = forumTopicPage.user.getText().substring(0,10);
+
+        Assert.assertEquals(user_posted_topic,user.user_name);
 
     }
-
-
 }

@@ -20,13 +20,6 @@ public class AbstractPage {
     public void go() {}
     public void at() {}
 
-    public void userSignedIn(WebDriver driver) {
-        Cookie cookie = new Cookie("PHPSESSID", "2b93c203d0c54608017c7a3a4454c096");
-        driver.manage().addCookie(cookie);
-        driver.navigate().refresh();
-
-    }
-
     public String currentDateAndTime() {
         DateFormat dateformat = new SimpleDateFormat("MM/dd/yyyy HH:mm:ss");
         Date date = new Date();
