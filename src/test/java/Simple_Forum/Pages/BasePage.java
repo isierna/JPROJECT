@@ -14,7 +14,7 @@ import java.util.Date;
 /**
  * Created by Ira on 10/10/16.
  */
-public class AbstractPage {
+public class BasePage {
     WebDriver driver;
 
     public void go() {}

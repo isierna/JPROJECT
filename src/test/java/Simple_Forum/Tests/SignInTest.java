@@ -2,7 +2,6 @@ package Simple_Forum.Tests;
 
 import Simple_Forum.Pages.ForumHomePage;
 import Simple_Forum.Pages.ForumSignInPage;
-import org.openqa.selenium.Cookie;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
 import org.testng.annotations.AfterMethod;
@@ -12,7 +11,7 @@ import org.testng.annotations.Test;
 /**
  * Created by Ira on 10/20/16.
  */
-public class SignInTest extends AbstractTest{
+public class SignInTest extends BaseTest {
     static ForumHomePage homePage;
     static ForumSignInPage signInPage;
     WebDriver driver;

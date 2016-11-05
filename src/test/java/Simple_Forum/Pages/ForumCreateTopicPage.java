@@ -11,7 +11,7 @@ import static org.openqa.selenium.support.ui.ExpectedConditions.presenceOfElemen
 /**
  * Created by Ira on 11/2/16.
  */
-public class ForumCreateTopicPage extends AbstractPage{
+public class ForumCreateTopicPage extends BasePage {
     public ForumCreateTopicPage(WebDriver driver) {
         this.driver = driver;
         PageFactory.initElements(driver, this);

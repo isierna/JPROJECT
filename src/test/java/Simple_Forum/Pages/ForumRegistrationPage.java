@@ -13,7 +13,7 @@ import static org.openqa.selenium.support.ui.ExpectedConditions.textToBePresentI
 /**
  * Created by Ira on 10/10/16.
  */
-public class ForumRegistrationPage extends AbstractPage {
+public class ForumRegistrationPage extends BasePage {
     public ForumRegistrationPage(WebDriver driver) {
         this.driver = driver;
         PageFactory.initElements(driver, this);

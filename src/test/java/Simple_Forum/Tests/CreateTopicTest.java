@@ -22,7 +22,7 @@ import java.io.IOException;
 /**
  * Created by Ira on 11/2/16.
  */
-public class CreateTopicTest extends AbstractTest {
+public class CreateTopicTest extends BaseTest {
     static ForumHomePage homePage;
     static ForumCreateTopicPage createTopicPage;
     static ForumTopicPage forumTopicPage;

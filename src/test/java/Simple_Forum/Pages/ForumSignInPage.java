@@ -12,7 +12,7 @@ import static org.openqa.selenium.support.ui.ExpectedConditions.presenceOfElemen
 /**
  * Created by Ira on 10/21/16.
  */
-public class ForumSignInPage extends AbstractPage {
+public class ForumSignInPage extends BasePage {
     public ForumSignInPage(WebDriver driver) {
         this.driver = driver;
         PageFactory.initElements(driver, this);
