@@ -14,14 +14,7 @@ import org.testng.annotations.Test;
  * Created by Ira on 10/10/16.
  */
 public class SignUpTest extends BaseTest {
-    static ForumHomePage homePage;
     static ForumRegistrationPage registrationPage;
-
-    @BeforeMethod
-    public void openMainPage() {
-        homePage = new ForumHomePage(driver);
-        homePage.go();
-    }
 
     @Test
     public void signUP() {

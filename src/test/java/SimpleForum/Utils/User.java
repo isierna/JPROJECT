@@ -1,19 +1,31 @@
 package SimpleForum.Utils;
 
-import org.openqa.selenium.Cookie;
+import SimpleForum.Pages.ForumHomePage;
+import SimpleForum.Pages.ForumSignInPage;
 import org.openqa.selenium.WebDriver;
+
 
 /**
  * Created by Ira on 11/3/16.
  */
 public class User {
+    static ForumSignInPage signInPage;
+ //   static ForumHomePage homePage;
 
-    public void userSignedIn(WebDriver driver) {
-        Cookie cookie = new Cookie("PHPSESSID", "5e38ccf6a98db6100e8f3a7f8914603b"); //TODO: session id still expires with the time
-        driver.manage().addCookie(cookie);
-        driver.navigate().refresh();
+    public String existingUserPass = "DgCFCyo";
+    public String existingUserName = "Ira" + existingUserPass;
+
+
+
+    public void signIn(WebDriver driver, ForumHomePage homePage) {
+        signInPage = new ForumSignInPage(driver);
+        signInPage.goTo(homePage.linkToSignInPage);
+        signInPage.userName.sendKeys(existingUserName);
+        signInPage.password.sendKeys(existingUserPass);
+        signInPage.signInButton.click();
+        signInPage.assertConfirmationPresent();
+        System.out.println("Success");
+
 
     }
-
-    public String user_name = "IraDgCFCyo";
 }

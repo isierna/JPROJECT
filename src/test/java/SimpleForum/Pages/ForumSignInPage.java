@@ -18,7 +18,6 @@ public class ForumSignInPage extends BasePage {
         PageFactory.initElements(driver, this);
 
     }
-    public String existingUserNameAndPass = "DgCFCyo";
 
     @FindBy(xpath = "//input[@name=\"user_name\"]")
     public WebElement userName;

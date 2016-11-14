@@ -1,34 +1,27 @@
 package SimpleForum.Tests;
 
-import SimpleForum.Pages.ForumHomePage;
 import SimpleForum.Pages.ForumSignInPage;
-import org.testng.annotations.AfterMethod;
-import org.testng.annotations.BeforeMethod;
+import SimpleForum.Utils.User;
 import org.testng.annotations.Test;
 
 /**
  * Created by Ira on 10/20/16.
  */
 public class SignInTest extends BaseTest {
-    static ForumHomePage homePage;
+//    static ForumHomePage homePage;
     static ForumSignInPage signInPage;
-
-    @BeforeMethod
-    public void openMainPage() {
-        homePage = new ForumHomePage(driver);
-        homePage.go();
-    }
+    static User user;
 
     @Test
     public void signIn() {
         homePage.at();
         signInPage = new ForumSignInPage(driver);
         signInPage.goTo(homePage.linkToSignInPage);
-        signInPage.userName.sendKeys("Ira" + signInPage.existingUserNameAndPass);
-        signInPage.password.sendKeys(signInPage.existingUserNameAndPass);
+        user = new User();
+        signInPage.userName.sendKeys("Ira" + user.existingUserPass);
+        signInPage.password.sendKeys(user.existingUserPass);
         signInPage.signInButton.click();
-        signInPage.assertConfirmationPresent(); //TODO: change to the actual assert
+        signInPage.assertConfirmationPresent();
         System.out.println("Success");
-
     }
 }
