@@ -26,9 +26,7 @@ public class BasePage {
 
     }
 
-    public void goTo(WebElement element) {
-
-    }
+    public void goTo(WebElement element) {}
 
     public <T> void waitUntil(ExpectedCondition<T> expectedCondition) {
         WebDriverWait wait = new WebDriverWait(driver, 10);

@@ -17,11 +17,17 @@ public class ForumTopicPage extends BasePage {
         PageFactory.initElements(driver, this);
     }
 
-    @FindBy(xpath = "//td[@class=\"post-content\"]")
+    @FindBy(xpath = "(//td[@class=\"post-content\"])[last()]")
     public WebElement message;
 
     @FindBy(xpath = "//td[@class=\"user-post\"]")
     public WebElement user;
+
+    @FindBy(xpath = "//form/textarea[@name=\"reply-content\"]")
+    public WebElement replyInput;
+
+    @FindBy(xpath = "//input[@value=\"Submit reply\"]")
+    public WebElement submitReplyButton;
 
     @Override
     public void at() {

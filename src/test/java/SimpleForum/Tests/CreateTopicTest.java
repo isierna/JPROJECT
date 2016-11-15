@@ -11,7 +11,6 @@ import org.testng.annotations.Test;
  * Created by Ira on 11/2/16.
  */
 public class CreateTopicTest extends BaseTest {
-    //static ForumHomePage homePage;
     static ForumCreateTopicPage createTopicPage;
     static ForumTopicPage forumTopicPage;
     static ForumCategoryPage forumCategoryPage;
@@ -20,8 +19,7 @@ public class CreateTopicTest extends BaseTest {
 
     @Test
     public void createTopic() {
-        user = new User();
-        user.signIn(driver, homePage);
+        user = new User(driver, homePage);
         homePage.linkToCreateTopicPage.click();
         createTopicPage = new ForumCreateTopicPage(driver);
         createTopicPage.at();

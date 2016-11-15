@@ -9,15 +9,7 @@ import org.openqa.selenium.WebDriver;
  * Created by Ira on 11/3/16.
  */
 public class User {
-    static ForumSignInPage signInPage;
- //   static ForumHomePage homePage;
-
-    public String existingUserPass = "DgCFCyo";
-    public String existingUserName = "Ira" + existingUserPass;
-
-
-
-    public void signIn(WebDriver driver, ForumHomePage homePage) {
+    public User(WebDriver driver, ForumHomePage homePage) {
         signInPage = new ForumSignInPage(driver);
         signInPage.goTo(homePage.linkToSignInPage);
         signInPage.userName.sendKeys(existingUserName);
@@ -26,6 +18,10 @@ public class User {
         signInPage.assertConfirmationPresent();
         System.out.println("Success");
 
-
     }
+    static ForumSignInPage signInPage;
+
+    public String existingUserPass = "DgCFCyo";
+    public String existingUserName = "Ira" + existingUserPass;
+
 }

@@ -8,7 +8,6 @@ import org.testng.annotations.Test;
  * Created by Ira on 10/20/16.
  */
 public class SignInTest extends BaseTest {
-//    static ForumHomePage homePage;
     static ForumSignInPage signInPage;
     static User user;
 
@@ -17,9 +16,8 @@ public class SignInTest extends BaseTest {
         homePage.at();
         signInPage = new ForumSignInPage(driver);
         signInPage.goTo(homePage.linkToSignInPage);
-        user = new User();
-        signInPage.userName.sendKeys("Ira" + user.existingUserPass);
-        signInPage.password.sendKeys(user.existingUserPass);
+        signInPage.userName.sendKeys("IraDgCFCyo");
+        signInPage.password.sendKeys("DgCFCyo");
         signInPage.signInButton.click();
         signInPage.assertConfirmationPresent();
         System.out.println("Success");
