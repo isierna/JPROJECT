@@ -22,8 +22,8 @@ import static org.openqa.selenium.support.ui.ExpectedConditions.presenceOfElemen
  */
 public class DepreviewPhotoDownload {
     static WebDriver driver;
-    static String maker = "Pentax";
-    static String model = "K-S2";
+    static String maker = "Fujifilm";
+    static String model = "x-e2s";
     static String file_name;
     static WebElement link_element;
     static String link;
@@ -99,7 +99,7 @@ public class DepreviewPhotoDownload {
         Thread.sleep(200);
         action.click(element1).perform();
 
-        WebElement link_to_camera = driver.findElement(By.partialLinkText("Pentax K-S2"));
+        WebElement link_to_camera = driver.findElement(By.partialLinkText("X-E2S"));
         link_to_camera.click();
 
         waitUntil(presenceOfElementLocated(By.xpath("//div[@class=\"filmstrip\"]")));

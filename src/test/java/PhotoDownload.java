@@ -20,8 +20,8 @@ import static org.openqa.selenium.support.ui.ExpectedConditions.presenceOfElemen
  */
 public class PhotoDownload {
     static WebDriver driver;
-    static String maker = "Pentax";
-    static String model = "K-S2";
+    static String maker = "Canon";
+    static String model = "EOS-1D X Mark II";
 
 
     @BeforeMethod
@@ -49,7 +49,7 @@ public class PhotoDownload {
 
     @Test
     public static void photoGet() throws IOException, AWTException {
-        String main_directory = "/Users/Ira/Pictures/1/" + maker + "_" + model + "new";
+        String main_directory = "/Users/Ira/Pictures/1/" + maker + "_" + model;
         String jpg_directory = main_directory + "/JPG";
         String raw_directory = main_directory + "/RAW";
 

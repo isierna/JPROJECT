@@ -28,15 +28,17 @@ import static org.openqa.selenium.support.ui.ExpectedConditions.presenceOfElemen
  */
 public class PhotographyBlogDownload {
     static WebDriver driver;
-    static String maker = "NIkon";
-    static String model = "D5";
+    static String maker = "Fuji";
+    static String model = "X-E2S(1)";
     static String raw_directory;
     static String jpg_directory;
-    static String cookie1;
-    static String cookies_string;
+    static String main_directory;
 
     public static void download(URL url, String destination) throws IOException {
-        InputStream inputStream = url.openStream();
+        HttpURLConnection connection = (HttpURLConnection)url.openConnection();
+        connection.setRequestProperty("Referer","http://www.photographyblog.com/reviews/canon_eos_1d_x_mark_ii_review/sample_images/");
+
+        InputStream inputStream = connection.getInputStream();
         OutputStream outputStream = new FileOutputStream(destination);
 
         byte[] bt = new byte[2048];
@@ -62,7 +64,7 @@ public class PhotographyBlogDownload {
 
     @BeforeMethod
     public static void openBrowser() {
-        String main_directory = "/Users/Ira/Pictures/PhotographyBlog/" + maker + "_" + model;
+        main_directory = "/Users/Ira/Pictures/PhotographyBlog/" + maker + "_" + model;
         jpg_directory = main_directory + "/JPG";
         raw_directory = main_directory + "/RAW";
 
@@ -71,16 +73,7 @@ public class PhotographyBlogDownload {
         new File(jpg_directory).mkdir();
         new File(raw_directory).mkdir();
 
-
-
-        FirefoxProfile profile = new FirefoxProfile();
-        profile.setPreference("browser.download.manager.showWhenStarting", false);
-        profile.setPreference("browser.download.folderList", 2);
-        profile.setPreference("browser.download.dir", "/Users/Ira/Pictures/1");
-        profile.setPreference("browser.helperApps.neverAsk.saveToDisk", "image/jpeg");
-        driver = new FirefoxDriver(profile);
-
-
+        driver = new FirefoxDriver();
 
     }
 
@@ -95,20 +88,37 @@ public class PhotographyBlogDownload {
 
     @Test
     public static void photographyBlog() throws IOException, AWTException, InterruptedException {
-        driver.get("http://www.photographyblog.com/reviews/nikon_d5_review/sample_images/");
-        WebElement element = driver.findElement(By.xpath("(//a[1][@href][text()='Download Original'])[1]"));
-        element.click();
+        driver.get("http://www.photographyblog.com/reviews/fujifilm_x_e2s_review/sample_images/");
+        driver.manage().window().maximize();
+        List<WebElement> allPhotos = driver.findElements(By.xpath("//a[1][@href][text()=\"Download Original\"]"));
 
-        WebElement element1 = waitUntil(presenceOfElementLocated(By.xpath("//img")));
+        for(int i=0; i<allPhotos.size(); i++) {
+            String link = allPhotos.get(i).getAttribute("href");
+            URL url = new URL(link);
+            String fileName = link.substring(link.lastIndexOf("/"));
+
+            String destination = jpg_directory + fileName;
+            download(url, destination);
+
+        }
 
 
-        Actions actions = new Actions(driver);
+        //WebElement element = driver.findElement(By.xpath("(//a[1][@href][text()='Download Original'])[1]"));
+        //String link = element.getAttribute("href");
+        /*URL url = new URL(link);
+        String fileName = link.substring(link.lastIndexOf("/"));
 
-        actions.contextClick(element1).build().perform();
-        actions.sendKeys("v").build().perform();
-        actions.sendKeys(Keys.ENTER).build().perform();
-        actions.sendKeys(Keys.ENTER).release();
+        String destination = jpg_directory + fileName;
 
+        System.out.println(destination);*/
+       // download(url, destination);
+
+
+
+
+
+
+        System.out.println("make it");
 
 
 

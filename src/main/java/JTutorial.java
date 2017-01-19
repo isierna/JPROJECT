@@ -1,3 +1,5 @@
+import java.util.Scanner;
+
 /**
  * Created by Ira on 11/7/16.
  */
@@ -57,6 +59,68 @@ public class JTutorial {
         for (myInteger = 5; myInteger <= 10; myInteger++) {
             System.out.println("for "+myInteger);
         }
+
+        //user input
+
+        Scanner scanner = new Scanner(System.in);
+        System.out.println("Please enter any text : ");
+
+        String userInput = scanner.nextLine();
+
+        System.out.println("Thank You");
+        System.out.println("You have entered => " + userInput);
+
+        //switch
+        System.out.println("Please enter your favourite number");
+
+        int myInt = scanner.nextInt();
+        String answer = "";
+
+        switch (myInt) {
+            case 1: answer = "you are lucky";
+                    break;
+            case 2: answer = "you are very happy";
+                    break;
+            case 3: answer = "you are extremely healthy";
+                    break;
+            case 4: answer = "don't change anything";
+                    break;
+            case 5: answer = "be yourself";
+                    break;
+            default: answer = "Number should be from 1 to 10";
+                    break;
+        }
+        System.out.println(answer);
+
+        //do while
+        int i = 0;
+
+
+        do {
+            Scanner scanner1 = new Scanner(System.in);
+            System.out.println("Please enter number 1 ");
+            i = scanner1.nextInt();
+            System.out.println("Your number is : " + i);
+        }while (i!=1);
+        System.out.println("Thank you for the correct number");
+
+        //array
+
+        int[] arrayOfIntegers = new int[10];
+        //arrayOfIntegers[0]=0;
+
+
+
+        for (int arrayIndex : arrayOfIntegers) {
+            arrayOfIntegers[arrayIndex]=arrayIndex;
+            System.out.println(arrayOfIntegers[arrayIndex]);
+        }
+
+        for (int a=0; a< arrayOfIntegers.length; a++) {
+            arrayOfIntegers[a] = a;
+            System.out.println(arrayOfIntegers[a]);
+        }
+
 
     }
 }
