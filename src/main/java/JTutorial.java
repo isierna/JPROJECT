@@ -119,6 +119,7 @@ public class JTutorial {
         for (int a=0; a< arrayOfIntegers.length; a++) {
             arrayOfIntegers[a] = a;
             System.out.println(arrayOfIntegers[a]);
+            System.out.print("");
         }
 
 
