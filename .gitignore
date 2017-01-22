@@ -1,4 +1,8 @@
 
- #.idea
+.idea
 
- #*.iml
+*.iml
+.idea/
+src/main/resources/
+target/generated-sources/
+target/generated-test-sources/

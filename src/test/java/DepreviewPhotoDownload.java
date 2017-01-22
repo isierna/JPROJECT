@@ -22,7 +22,7 @@ import static org.openqa.selenium.support.ui.ExpectedConditions.presenceOfElemen
  */
 public class DepreviewPhotoDownload {
     static WebDriver driver;
-    static String maker = "Fujifilm";
+    static String maker = "Fujifil";
     static String model = "x-e2s";
     static String file_name;
     static WebElement link_element;
